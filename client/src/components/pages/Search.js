@@ -25,6 +25,10 @@ class Search extends React.Component {
         });
     }
 
+    saveBook = (book) => {
+        console.log("Save me!", book);
+    }
+
     render() {
         return (
             <div>
@@ -64,7 +68,7 @@ class Search extends React.Component {
                                         <p>{book.volumeInfo.authors ? `Written by ${book.volumeInfo.authors.join(", ")}` : ""}</p>
                                     </div>
                                     <div className="col-4 border text-right">
-                                        <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener noreferrer">View</a> <a href="/save">Save</a>
+                                        <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener noreferrer">View</a> <button onClick={() => this.saveBook(book)}>Save</button>
                                     </div>
                                 </div>
                                 <div className="row">
