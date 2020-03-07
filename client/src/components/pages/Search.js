@@ -23,7 +23,7 @@ class Search extends React.Component {
                 search: ""
             })
         });
-    }
+    };
 
     saveBook = (book) => {
         const bookObject = {
@@ -34,7 +34,7 @@ class Search extends React.Component {
             "link": book.volumeInfo.infoLink
         }
         axios.post("/api/books", bookObject);
-    }
+    };
 
     render() {
         return (

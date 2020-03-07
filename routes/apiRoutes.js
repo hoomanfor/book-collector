@@ -26,4 +26,10 @@ router.post("/books", (req, res) => {
     });
 });
 
+router.delete("/books/:id", (req, res) => {
+    Book.findOneAndDelete({ _id: req.params.id })
+    .then((foundAndDeleted) => res.json(foundAndDeleted))
+    .catch((err) => res.json(err))
+})
+
 module.exports = router;
