@@ -9,6 +9,13 @@ router.get("/search", (req, res) => {
         .catch(err => res.status(422).json(err));
 });
 
+router.get("/books", (req, res) => {
+    Book.find()
+    .then((books) => {
+        res.json(books)
+    });
+});
+
 router.post("/books", (req, res) => {
     Book.create(req.body)
     .then(() => {
