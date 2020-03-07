@@ -26,7 +26,14 @@ class Search extends React.Component {
     }
 
     saveBook = (book) => {
-        console.log("Save me!", book);
+        const bookObject = {
+            "title": book.volumeInfo.title,
+            "authors": book.volumeInfo.authors,
+            "description": book.volumeInfo.description ? book.volumeInfo.description : "No Description Available for this Listing",
+            "image": book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/130x190?text=No+Book+Cover",
+            "link": book.volumeInfo.infoLink
+        }
+        axios.post("/api/books", bookObject);
     }
 
     render() {
