@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Jumbotron from "../components/Jumbotron";
 
 class Saved extends React.Component {
     state = {
@@ -8,7 +9,7 @@ class Saved extends React.Component {
 
     componentDidMount() {
         this.loadBooks();
-    }
+    };
 
     loadBooks = () => {
         axios.get("/api/books").then((response) => {
@@ -22,17 +23,15 @@ class Saved extends React.Component {
         axios.delete("/api/books/" + id).then((response) => {
             this.loadBooks();
         });
-    }
+    };
 
     render() {
         return (
             <div>
-                <div className="jumbotron jumbotron-fluid">
-                    <div className="container">
-                        <h1 className="display-4">Saved Books</h1>
-                        <p className="lead">MERN stack (MongoDB, Express.js, React.js, and Node.js)</p>
-                    </div>
-                </div>
+                <Jumbotron>
+                    <h1 className="display-4">Saved Books</h1>
+                    <p className="lead">MERN stack (MongoDB, Express.js, React.js, and Node.js)</p>
+                </Jumbotron>
                 <div className="container border">
                     {this.state.results.map(book => (
                         <div key={book._id} className="container">

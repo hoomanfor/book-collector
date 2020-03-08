@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import Jumbotron from "../components/Jumbotron";
+import Input from "../components/Input";
+import SearchBtn from "../components/SearchBtn";
 
 class Search extends React.Component {
     state = {
@@ -39,32 +42,21 @@ class Search extends React.Component {
     render() {
         return (
             <div>
-                <div className="jumbotron jumbotron-fluid">
-                    <div className="container">
-                        <h1 className="display-4">Book Collector</h1>
-                        <p className="lead">MERN stack (MongoDB, Express.js, React.js, and Node.js)</p>
-                        <form>
+                <Jumbotron>
+                    <h1 className="display-4">Book Collector</h1>
+                    <p className="lead">MERN stack (MongoDB, Express.js, React.js, and Node.js)</p>
+                    <form>
                         <div className="input-group">
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                placeholder="Search a Book Title, Author Name, or Topic" 
+                            <Input 
                                 onChange={this.handleInputChange} 
-                                name="search" 
                                 value={this.state.search} 
                             />
-                            <div className="input-group-append">
-                                <button 
-                                    className="btn btn-outline-primary" 
-                                    type="submit" 
-                                    onClick={this.searchForBooks} 
-                                    disabled={!(this.state.search)}>Search
-                                </button>
-                            </div>
+                            <SearchBtn onClick={this.searchForBooks} disabled={!(this.state.search)}>
+                                Search
+                            </SearchBtn>
                         </div>
-                        </form>
-                    </div>
-                </div>
+                    </form>
+                </Jumbotron>
                 <div className="container border">
                     <h2 className="border">{this.state.results.length ? "Results:" : "Search for Books!"}</h2>
                         {this.state.results.map(book => (
