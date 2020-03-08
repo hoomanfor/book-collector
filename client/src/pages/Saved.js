@@ -33,6 +33,11 @@ class Saved extends React.Component {
                     <p className="lead">MERN stack (MongoDB, Express.js, React.js, and Node.js)</p>
                 </Jumbotron>
                 <div className="container border">
+                    {!(this.state.results.length) && 
+                        <h2 className="text-center border text-warning">
+                            You haven't saved any books, friend.
+                        </h2>
+                    }
                     {this.state.results.map(book => (
                         <div key={book._id} className="container">
                             <div className="row">

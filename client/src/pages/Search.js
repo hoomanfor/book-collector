@@ -7,7 +7,8 @@ import SearchBtn from "../components/SearchBtn";
 class Search extends React.Component {
     state = {
         results: [],
-        search: ""
+        search: "",
+        loading: false
     };
 
     handleInputChange = (event) => {
@@ -18,12 +19,16 @@ class Search extends React.Component {
 
     searchForBooks = (event) => {
         event.preventDefault();
+        this.setState({
+            loading: true
+        });
         const search = this.state.search.split(" ").join("+");
         axios.get("/api/search?q=" + search).then((response) => {
             console.log(response.data.items)
             this.setState({
                 results: response.data.items,
-                search: ""
+                search: "",
+                loading: false
             })
         });
     };
@@ -52,34 +57,46 @@ class Search extends React.Component {
                                 value={this.state.search} 
                             />
                             <SearchBtn onClick={this.searchForBooks} disabled={!(this.state.search)}>
+                                {this.state.loading && <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>}
                                 Search
                             </SearchBtn>
                         </div>
                     </form>
                 </Jumbotron>
-                <div className="container border">
-                    <h2 className="border">{this.state.results.length ? "Results:" : "Search for Books!"}</h2>
-                        {this.state.results.map(book => (
-                            <div key={book.id} className="container">
-                                <div className="row">
-                                    <div className="col-8 border">
-                                        <h3>{book.volumeInfo.title}</h3>
-                                        <p>{book.volumeInfo.authors ? `Written by ${book.volumeInfo.authors.join(", ")}` : ""}</p>
-                                    </div>
-                                    <div className="col-4 border text-right">
-                                        <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener noreferrer">View</a> <button onClick={() => this.saveBook(book)}>Save</button>
-                                    </div>
+                <div className="container">
+                    {!(this.state.results.length) &&
+                        <h2 className="text-center text-info">
+                            <i className="fas fa-search text-info"></i> Search for Books! <i className="fas fa-book-open text-info"></i>
+                        </h2>
+                    }
+                    {this.state.results.map(book => (
+                        <div key={book.id} className="book-container">
+                            <div className="row py-1">
+                                <div className="col-md-8 text-center text-md-left">
+                                    <h3 className="title">{book.volumeInfo.title}</h3>
+                                    <p className="authors">{book.volumeInfo.authors ? `Written by ${book.volumeInfo.authors.join(", ")}` : ""}</p>
                                 </div>
-                                <div className="row">
-                                    <div className="col-2 text-center border">
-                                        <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/130x190?text=No+Book+Cover"} />
-                                    </div>
-                                    <div className="col-10 border">
-                                        <p>{book.volumeInfo.description ? book.volumeInfo.description : "No Description Available for this Listing"}</p>
-                                    </div>
+                                <div className="col-md-4 text-center d-md-flex justify-content-end align-items-end">
+                                        <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener noreferrer">
+                                            <button className="btn btn-outline-primary">
+                                                View
+                                            </button>
+                                        </a>
+                                        <button className="btn btn-success ml-1" onClick={() => this.saveBook(book)}>
+                                            Save
+                                        </button>
                                 </div>
                             </div>
-                        ))}
+                            <div className="row py-1">
+                                <div className="col-md-2 text-center">
+                                    <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/130x190?text=No+Book+Cover"} />
+                                </div>
+                                <div className="col-md-10">
+                                    <p className="description">{book.volumeInfo.description ? book.volumeInfo.description : "No Description Available for this Listing"}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         );
