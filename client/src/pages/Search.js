@@ -76,7 +76,7 @@ class Search extends React.Component {
                     }
                     {this.state.results.map(book => (
                         <div key={book.id} className="book-container">
-                            <div className="row py-1">
+                            <div className="row no-gutters">
                                 <div className="col-md-8 text-center text-md-left">
                                     <h3 className="title">{book.volumeInfo.title}</h3>
                                     <p className="authors">{book.volumeInfo.authors ? `Written by ${book.volumeInfo.authors.join(", ")}` : ""}</p>
@@ -92,9 +92,9 @@ class Search extends React.Component {
                                         </button>
                                 </div>
                             </div>
-                            <div className="row py-1">
+                            <div className="row no-gutters">
                                 <div className="col-md-2 text-center">
-                                    <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/130x190?text=No+Book+Cover"} />
+                                    <img className="image" alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/130x190?text=No+Book+Cover"} />
                                 </div>
                                 <div className="col-md-10">
                                     <p className="description">{book.volumeInfo.description ? book.volumeInfo.description : "No Description Available for this Listing"}</p>
