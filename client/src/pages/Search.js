@@ -34,6 +34,7 @@ class Search extends React.Component {
     };
 
     saveBook = (book) => {
+        const filteredResults = this.state.results.filter(filteredBook => filteredBook.id !== book.id);
         const bookObject = {
             "title": book.volumeInfo.title,
             "authors": book.volumeInfo.authors,
@@ -41,7 +42,11 @@ class Search extends React.Component {
             "image": book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://via.placeholder.com/130x190?text=No+Book+Cover",
             "link": book.volumeInfo.infoLink
         }
-        axios.post("/api/books", bookObject);
+        axios.post("/api/books", bookObject).then(() => {
+            this.setState({
+                results: filteredResults
+            })
+        });
     };
 
     render() {
