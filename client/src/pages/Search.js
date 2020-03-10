@@ -62,7 +62,7 @@ class Search extends React.Component {
                                 value={this.state.search} 
                             />
                             <SearchBtn onClick={this.searchForBooks} disabled={!(this.state.search)}>
-                                {this.state.loading && <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>}
+                                {this.state.loading && <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>}
                                 Search
                             </SearchBtn>
                         </div>
